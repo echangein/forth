@@ -32,6 +32,12 @@ class Forth:
 	def halt(self):
 		print('System halted')
 		exit(-1)
+	
+	def lit(self):
+		# ( -- n ) get world from flash and store it in data stack
+		self.IP += 1
+		self.DataStack.push(self.flash[self.IP])
+		
 
 	def d_to_r(self):
 		#	>r	move value from data stack to return stack
@@ -53,14 +59,11 @@ class Forth:
 		self.DataStack.push(self.ram[addr])
 		
 	def ram_put(self):
-		#	@ get from ram
+		#	! get from ram
 		addr = self.DataStack.pop()
 		val = self.DataStack.pop()
 		self.ram[addr] = val
 	
-	def lit(self):
-		self.IP += 1
-		self.DataStack.push(self.flash[self.IP])
 		
 	def dot(self):
 		print(self.DataStack.pop())
